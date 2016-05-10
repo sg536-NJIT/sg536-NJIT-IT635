@@ -1,0 +1,347 @@
+-- MySQL dump 10.13  Distrib 5.5.47, for debian-linux-gnu (i686)
+--
+-- Host: localhost    Database: stats_new
+-- ------------------------------------------------------
+-- Server version	5.5.47-0ubuntu0.14.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `2016_Game_Breakdown`
+--
+
+DROP TABLE IF EXISTS `2016_Game_Breakdown`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `2016_Game_Breakdown` (
+  `GameDate` datetime NOT NULL,
+  `WinningTeamScore` int(11) NOT NULL,
+  `LosingTeamScore` int(11) NOT NULL,
+  `GameComments` varchar(255) DEFAULT NULL,
+  `newGameID` int(11) NOT NULL AUTO_INCREMENT,
+  `WinningTeamID` int(11) NOT NULL,
+  `LosingTeamID` int(11) NOT NULL,
+  PRIMARY KEY (`newGameID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `2016_NBA_Player`
+--
+
+DROP TABLE IF EXISTS `2016_NBA_Player`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `2016_NBA_Player` (
+  `playerid` int(11) NOT NULL AUTO_INCREMENT,
+  `teamid` int(11) NOT NULL,
+  `displayname` varchar(75) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Birthdate` date DEFAULT NULL,
+  `TeamName` varchar(35) DEFAULT NULL,
+  `schoolID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`playerid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1627577 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger insert_new_player after insert on 2016_NBA_Player for each row insert into 2016_NBA_Player_Stats (playerid, displayname,teamid) values (NEW.playerid, NEW.displayname, NEW.teamid) */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `2016_NBA_Player_Stats`
+--
+
+DROP TABLE IF EXISTS `2016_NBA_Player_Stats`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `2016_NBA_Player_Stats` (
+  `playerid` int(11) NOT NULL,
+  `displayname` varchar(75) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `teamid` int(11) NOT NULL,
+  `rebs` int(11) DEFAULT NULL,
+  `assists` int(11) DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  `steals` int(11) DEFAULT NULL,
+  `blocks` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary table structure for view `2016_NBA_Player_Stats_View`
+--
+
+DROP TABLE IF EXISTS `2016_NBA_Player_Stats_View`;
+/*!50001 DROP VIEW IF EXISTS `2016_NBA_Player_Stats_View`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `2016_NBA_Player_Stats_View` (
+  `displayname` tinyint NOT NULL,
+  `Name` tinyint NOT NULL,
+  `assists` tinyint NOT NULL,
+  `points` tinyint NOT NULL,
+  `steals` tinyint NOT NULL,
+  `blocks` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `2016_NBA_Team_Stats`
+--
+
+DROP TABLE IF EXISTS `2016_NBA_Team_Stats`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `2016_NBA_Team_Stats` (
+  `TeamId` int(11) NOT NULL,
+  `games` int(11) DEFAULT NULL,
+  `rebs` int(11) DEFAULT NULL,
+  `assists` int(11) DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  `steals` int(11) DEFAULT NULL,
+  `blocks` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary table structure for view `2016_NBA_Team_Stats_View`
+--
+
+DROP TABLE IF EXISTS `2016_NBA_Team_Stats_View`;
+/*!50001 DROP VIEW IF EXISTS `2016_NBA_Team_Stats_View`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `2016_NBA_Team_Stats_View` (
+  `Name` tinyint NOT NULL,
+  `games` tinyint NOT NULL,
+  `rebs` tinyint NOT NULL,
+  `assists` tinyint NOT NULL,
+  `points` tinyint NOT NULL,
+  `steals` tinyint NOT NULL,
+  `blocks` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `nightlyleaders`
+--
+
+DROP TABLE IF EXISTS `nightlyleaders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `nightlyleaders` (
+  `EventDate` date NOT NULL,
+  `LeagueId` char(2) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `PlayerId` int(11) NOT NULL,
+  `StatType` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `Rank` int(11) NOT NULL,
+  `Mins` int(11) DEFAULT NULL,
+  `FGA` int(11) DEFAULT NULL,
+  `FGM` int(11) DEFAULT NULL,
+  `FGPct` decimal(6,3) DEFAULT NULL,
+  `FTA` int(11) DEFAULT NULL,
+  `FTM` int(11) DEFAULT NULL,
+  `FTPct` decimal(6,3) DEFAULT NULL,
+  `TPA` int(11) DEFAULT NULL,
+  `TPM` int(11) DEFAULT NULL,
+  `TPPct` decimal(6,3) DEFAULT NULL,
+  `OffRebs` int(11) DEFAULT NULL,
+  `DefRebs` int(11) DEFAULT NULL,
+  `Rebs` int(11) DEFAULT NULL,
+  `Assists` int(11) DEFAULT NULL,
+  `Points` int(11) DEFAULT NULL,
+  `Turnovers` int(11) DEFAULT NULL,
+  `Steals` int(11) DEFAULT NULL,
+  `Blocks` int(11) DEFAULT NULL,
+  `Fouls` int(11) DEFAULT NULL,
+  `Disqualifications` int(11) DEFAULT NULL,
+  `DoubleDoubles` int(11) DEFAULT NULL,
+  `TripleDoubles` int(11) DEFAULT NULL,
+  `Efficiency` decimal(6,3) DEFAULT NULL,
+  `FlagrantFouls` int(11) DEFAULT NULL,
+  `TechnicalFouls` int(11) DEFAULT NULL,
+  `Ejections` int(11) DEFAULT NULL,
+  `BlocksAgainst` int(11) DEFAULT NULL,
+  `PlusMinus` int(11) DEFAULT NULL,
+  `AssistToTurnoverRatio` decimal(6,3) DEFAULT NULL,
+  `LastUpdateUser` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `LastUpdateDateTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `player`
+--
+
+DROP TABLE IF EXISTS `player`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `player` (
+  `playerid` int(11) DEFAULT NULL,
+  `FirstName` varchar(35) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `LastName` varchar(35) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `DisplayName` varchar(75) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `BirthDate` date DEFAULT NULL,
+  `Country` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Code` varchar(75) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `DraftSeason` int(11) DEFAULT NULL,
+  `RookieSeason` int(11) DEFAULT NULL,
+  `School` varchar(75) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `SchoolType` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `LastUpdateUser` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `LastUpdateDateTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `DisplayAffiliate` varchar(306) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `roster`
+--
+
+DROP TABLE IF EXISTS `roster`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roster` (
+  `Season` int(11) NOT NULL,
+  `LeagueId` char(2) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `TeamId` int(11) NOT NULL,
+  `PlayerId` int(11) NOT NULL,
+  `Sequence` tinyint(4) DEFAULT NULL,
+  `Status` char(1) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Height` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Weight` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `HeightMetric` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `WeightMetric` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `JerseyNo` varchar(4) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Position` varchar(15) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Experience` int(11) DEFAULT NULL,
+  `IsCaptain` tinyint(1) DEFAULT NULL,
+  `LastUpdateUser` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `LastUpdateDateTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `IsFreeAgent` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `school`
+--
+
+DROP TABLE IF EXISTS `school`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `school` (
+  `schoolID` int(11) NOT NULL AUTO_INCREMENT,
+  `School` varchar(75) DEFAULT NULL,
+  PRIMARY KEY (`schoolID`)
+) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `team`
+--
+
+DROP TABLE IF EXISTS `team`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `team` (
+  `season` int(11) DEFAULT NULL,
+  `leagueid` char(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `teamid` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(35) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Abbr` char(3) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Code` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `ArenaName` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `City` varchar(35) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Country` varchar(35) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Conference` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `Division` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `State` varchar(35) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `StateAbbr` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `lastupdateuser` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `lastupdatedatetime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`teamid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1610616847 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger insert_new_team after insert on team for each row insert into 2016_NBA_Team_Stats (TeamId) values (NEW.teamid) */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Final view structure for view `2016_NBA_Player_Stats_View`
+--
+
+/*!50001 DROP TABLE IF EXISTS `2016_NBA_Player_Stats_View`*/;
+/*!50001 DROP VIEW IF EXISTS `2016_NBA_Player_Stats_View`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `2016_NBA_Player_Stats_View` AS select `2016_NBA_Player_Stats`.`displayname` AS `displayname`,`team`.`Name` AS `Name`,`2016_NBA_Player_Stats`.`assists` AS `assists`,`2016_NBA_Player_Stats`.`points` AS `points`,`2016_NBA_Player_Stats`.`steals` AS `steals`,`2016_NBA_Player_Stats`.`blocks` AS `blocks` from (`2016_NBA_Player_Stats` join `team` on((`2016_NBA_Player_Stats`.`teamid` = `team`.`teamid`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `2016_NBA_Team_Stats_View`
+--
+
+/*!50001 DROP TABLE IF EXISTS `2016_NBA_Team_Stats_View`*/;
+/*!50001 DROP VIEW IF EXISTS `2016_NBA_Team_Stats_View`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `2016_NBA_Team_Stats_View` AS select `team`.`Name` AS `Name`,`2016_NBA_Team_Stats`.`games` AS `games`,`2016_NBA_Team_Stats`.`rebs` AS `rebs`,`2016_NBA_Team_Stats`.`assists` AS `assists`,`2016_NBA_Team_Stats`.`points` AS `points`,`2016_NBA_Team_Stats`.`steals` AS `steals`,`2016_NBA_Team_Stats`.`blocks` AS `blocks` from (`2016_NBA_Team_Stats` join `team` on((`2016_NBA_Team_Stats`.`TeamId` = `team`.`teamid`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-05-09 19:05:23
